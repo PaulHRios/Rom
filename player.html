@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <title>Jugando — Mi Consola Retro</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#000000">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="coi-serviceworker.js"></script>
+</head>
+<body class="player-body">
+  <div class="player-bar">
+    <a href="index.html" class="back-link">← Biblioteca</a>
+    <span id="player-title" class="player-title"></span>
+  </div>
+  <div id="game-wrap">
+    <div id="game"></div>
+  </div>
+  <div id="player-msg" class="player-msg hidden"></div>
+
+  <script src="js/consoles.js"></script>
+  <script src="js/cheats.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/player.js"></script>
+</body>
+</html>

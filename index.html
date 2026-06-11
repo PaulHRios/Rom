@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Mi Consola Retro</title>
+  <meta name="description" content="Emulador personal multi-consola: Game Boy, GBA, NES, SNES, N64, PS1 y PSP">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Consola Retro">
+  <meta name="theme-color" content="#12101c">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="coi-serviceworker.js"></script>
+</head>
+<body>
+  <header class="app-header">
+    <h1>🎮 Mi Consola Retro</h1>
+    <p id="storage-info" class="storage-info"></p>
+  </header>
+
+  <div id="install-banner" class="banner hidden">
+    <strong>⚠️ Protege tus partidas:</strong> toca el botón de compartir de Safari y elige
+    <em>“Añadir a pantalla de inicio”</em>. Juega siempre desde ese ícono: así iOS no
+    borrará tus datos guardados. Exporta un respaldo de vez en cuando con el botón de abajo.
+    <button id="dismiss-banner" class="banner-close" aria-label="Cerrar">✕</button>
+  </div>
+
+  <main>
+    <section class="actions">
+      <button id="add-game" class="btn primary big">＋ Agregar juego</button>
+      <div class="actions-row">
+        <button id="export-saves" class="btn">⬇️ Exportar partidas (respaldo)</button>
+        <button id="import-saves" class="btn">⬆️ Importar respaldo</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>Mis juegos</h2>
+      <div id="game-list" class="game-list">
+        <p class="empty-msg">Aún no hay juegos. Toca <strong>＋ Agregar juego</strong> y elige
+        un archivo ROM desde la app Archivos (iCloud, descargas, etc.).</p>
+      </div>
+    </section>
+
+    <section class="bios-section">
+      <h2>BIOS (solo PlayStation 1)</h2>
+      <p class="hint">Los juegos de PS1 necesitan el archivo BIOS de tu consola
+      (por ejemplo <code>scph5501.bin</code>). Las demás consolas no necesitan nada.</p>
+      <div id="bios-list"></div>
+    </section>
+
+    <footer class="app-footer">
+      <p>Solo para uso personal con copias de juegos que posees. Los juegos se guardan en
+      este dispositivo, no se suben a ningún servidor.</p>
+    </footer>
+  </main>
+
+  <!-- Diálogo: agregar juego -->
+  <dialog id="add-dialog">
+    <form method="dialog" id="add-form">
+      <h3>Agregar juego</h3>
+      <label>Nombre
+        <input type="text" id="add-name" required autocomplete="off">
+      </label>
+      <label>Consola
+        <select id="add-console"></select>
+      </label>
+      <p id="add-file-info" class="hint"></p>
+      <div class="dialog-buttons">
+        <button type="button" class="btn" id="add-cancel">Cancelar</button>
+        <button type="submit" class="btn primary" id="add-confirm">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Diálogo: trucos -->
+  <dialog id="cheats-dialog">
+    <h3 id="cheats-title">Trucos</h3>
+    <p class="hint">Estos trucos aparecerán en el menú del juego
+    (⚙️ Ajustes → <em>Cheats</em>) donde puedes activarlos todos con un toque cada uno.</p>
+    <div id="cheats-curated"></div>
+    <h4>Mis trucos personalizados</h4>
+    <div id="cheats-custom"></div>
+    <form id="cheat-add-form" class="cheat-form">
+      <input type="text" id="cheat-name" placeholder="Nombre (ej: Vidas infinitas)" required>
+      <input type="text" id="cheat-code" placeholder="Código (GameShark/Game Genie)" required>
+      <button type="submit" class="btn primary">Agregar truco</button>
+    </form>
+    <p class="hint">Encuentra códigos para casi cualquier juego en gamehacking.org
+    o buscando “gameshark codes + nombre del juego”.</p>
+    <div class="dialog-buttons">
+      <button class="btn" id="cheats-close">Cerrar</button>
+    </div>
+  </dialog>
+
+  <input type="file" id="rom-file" class="hidden-input" aria-hidden="true">
+  <input type="file" id="backup-file" class="hidden-input" accept=".json,application/json" aria-hidden="true">
+  <input type="file" id="bios-file" class="hidden-input" aria-hidden="true">
+
+  <script src="js/consoles.js"></script>
+  <script src="js/cheats.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
