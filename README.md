@@ -93,6 +93,19 @@ respaldo de los cartuchos/discos que ya posees y agrégalas con el botón
   guardan en tu dispositivo. O sea, tu límite real es el espacio libre de tu
   iPhone/iPad, no el de GitHub.
 
+## Si un juego cierra la página ("A problem repeatedly occurred")
+
+Ese mensaje de Safari significa que la página se quedó **sin memoria**. Pasa
+con ISOs grandes (sobre todo de PSP) porque el juego completo debe caber en
+la RAM que iOS le da al navegador (~1 GB por pestaña).
+
+- Convierte la ISO a **`.cso`** (formato comprimido de PSP) con PPSSPP o
+  [maxcso](https://github.com/unknownbrackets/maxcso) en una PC — suele
+  reducir el archivo a la mitad y la app lo lee igual.
+- Cierra las demás pestañas de Safari antes de jugar.
+- Juegos de PSP de más de ~700 MB pueden no caber ni comprimidos; para esos,
+  la app oficial **PPSSPP** del App Store es la mejor opción.
+
 ## BIOS de PS1
 
 Los juegos de PS1 necesitan el BIOS de tu consola (ej. `scph5501.bin`).

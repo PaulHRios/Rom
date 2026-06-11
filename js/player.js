@@ -45,10 +45,34 @@
   // con el aislamiento (COEP) que requiere el núcleo de PSP.
   const CDN = 'https://cdn.emulatorjs.org/stable/data/';
 
+  // Aviso para juegos muy grandes: Safari en iPhone/iPad limita la memoria
+  // por pestaña y una ISO enorme puede cerrarla ("A problem repeatedly
+  // occurred"). Mejor avisar antes de intentar.
+  if (rom.size > 500 * 1024 * 1024) {
+    const mb = Math.round(rom.size / 1024 / 1024);
+    const ok = confirm(
+      `Este juego pesa ${mb} MB. En iPhone/iPad el navegador puede quedarse ` +
+      'sin memoria con archivos tan grandes y cerrar la página.\n\n' +
+      'Consejo: convierte la ISO a formato .cso (comprimido) con PPSSPP o ' +
+      'maxcso en una PC; suele reducir el tamaño a la mitad.\n\n' +
+      '¿Intentar de todos modos?'
+    );
+    if (!ok) {
+      location.href = 'index.html';
+      return;
+    }
+  }
+
   window.EJS_player = '#game';
   window.EJS_core = consoleInfo ? consoleInfo.core : rom.console;
   window.EJS_gameName = rom.name; // mantiene estable el nombre de las partidas guardadas
-  window.EJS_gameUrl = URL.createObjectURL(rom.data);
+  window.EJS_gameId = rom.id;
+  // Se pasa el archivo directamente (no una URL blob): así EmulatorJS lo lee
+  // sin hacer una copia extra de todo el juego en memoria.
+  window.EJS_gameUrl = rom.data;
+  // Sin caché interna de ROMs: el juego ya vive en la biblioteca local y
+  // cachearlo duplicaría su tamaño en memoria y en disco.
+  window.EJS_CacheLimit = 0;
   window.EJS_pathtodata = CDN;
   window.EJS_language = 'es-ES';
   window.EJS_startOnLoaded = true;
